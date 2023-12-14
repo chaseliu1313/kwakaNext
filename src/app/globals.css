@@ -2,26 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.content-container {
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@keyframes shadowFadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
+.fadein-container::after {
+  animation: shadowFadein 2s ease-in-out 1s;
+}
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer base {
+  :root {
+    --color-accent: 157 187 174;
+    --color-bkg: 243 242 245;
+    --color-primary: 36 69 97;
+    --color-secondary: 241 199 186;
+    --color-text: 18 20 25;
+    --color-danger: 250 12 13;
+    --color-warning: 245 206 118;
+    --color-success: 141 214 152;
+    --shadow-main: "15px 15px 25px rgba(0, 0, 0, 0.16), -15px -15px 25px rgba(255, 255, 255, 0.65)";
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-accent: 172 223 62;
+      --color-bkg: 4 22 38;
+      --color-primary: 243 242 245;
+      --color-secondary: 241 199 186;
+      --color-text: 244 237 237;
+      --color-danger: 250 12 13;
+      --color-warning: 245 206 118;
+      --color-success: 141 214 152;
+      --shadow-main: "inset 3px 3px 4px rgba(0, 0, 0, 0.3), inset -3px -3px 4px rgba(126, 149, 168, 0.3)";
+    }
+  }
+
+  :root[data-theme="light"] {
+    --color-accent: 157 187 174;
+    --color-bkg: 243 242 245;
+    --color-primary: 36 69 97;
+    --color-secondary: 241 199 186;
+    --color-text: 18 20 25;
+    --color-danger: 250 12 13;
+    --color-warning: 245 206 118;
+    --color-success: 141 214 152;
+    --shadow-main: "15px 15px 25px rgba(0, 0, 0, 0.16), -15px -15px 25px rgba(255, 255, 255, 0.65)";
+  }
+
+  :root[data-theme="dark"] {
+    --color-accent: 172 223 62;
+    --color-bkg: 4 22 38;
+    --color-primary: 243 242 245;
+    --color-secondary: 241 199 186;
+    --color-text: 244 237 237;
+    --color-danger: 250 12 13;
+    --color-warning: 245 206 118;
+    --color-success: 141 214 152;
+    --shadow-main: "inset 3px 3px 4px rgba(0, 0, 0, 0.3), inset -3px -3px 4px rgba(126, 149, 168, 0.3)";
+  }
 }

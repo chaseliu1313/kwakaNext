@@ -1,113 +1,390 @@
-import Image from 'next/image'
+"use client";
+import { useEffect, useRef, useState } from "react";
+import { firstTimerKey, light } from "@constant/values";
+import { useLanguage } from "@hooks/useLanguage";
+import useTheme from "@hooks/useTheme";
+import { useWindowResize } from "@hooks/useWindowResize";
+import { AnimatePresence, easeInOut, motion } from "framer-motion";
+import Lottie, { LottieRefCurrentProps } from "lottie-react";
+import home1lt from "@public/animation/kwaka_home_1_lt.json";
+import home1dk from "@public/animation/kwaka_home_1_dk.json";
+import key from "@public/image/iconwkey.png";
+import keyBase from "@public/image/keywoface.png";
+import Image from "next/image";
+import puzzleBlD from "@public/image/puzzle-bl-d.png";
+import puzzleBrD from "@public/image/puzzle-br-d.png";
+import puzzleTlD from "@public/image/puzzle-tl-d.png";
+import puzzleTrD from "@public/image/puzzle-tr-d.png";
+import puzzleBlL from "@public/image/puzzle-bl-l.png";
+import puzzleBrL from "@public/image/puzzle-br-l.png";
+import puzzleTlL from "@public/image/puzzle-tl-l.png";
+import puzzleTrL from "@public/image/puzzle-tr-l.png";
+import { HiOutlineChevronDown } from "react-icons/hi";
+import Button from "@component/button";
+import MainContentContainer from "@component/mainContentContainer";
 
+const ripples = [1, 2, 3];
+const ripplesTWClass =
+  "h-[283.2px] w-[291.6px] md:h-[377.6px] md:w-[388.8px] lg:h-[472px] lg:w-[486px] absolute top-50 left-50  rounded-[60px] shadow-inset bg-bkg";
+const keyboarTWClass =
+  "h-[283.2px] w-[291.6px] md:h-[377.6px] md:w-[388.8px] lg:h-[472px] lg:w-[486px] absolute top-50 left-50";
 export default function Home() {
+  const { windowSize } = useWindowResize();
+  const { lang } = useLanguage();
+  const { theme } = useTheme();
+  const height = windowSize.height - 90;
+  const lottiref1 = useRef<LottieRefCurrentProps | null>(null);
+  const [firstTimer, setFirstTimer] = useState<boolean>(true);
+  const [enterMain, setEnterMain] = useState<boolean>(false);
+  const [enterContent, setEnterContent] = useState<boolean>(false);
+  const [isLandScapeMobile, setLandscapeMobile] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (lottiref1 && lottiref1.current) {
+      lottiref1.current.setSpeed(0.5);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [theme, lottiref1.current]);
+
+  useEffect(() => {
+    const isfirstTimer = localStorage.getItem(firstTimerKey);
+
+    if (!isfirstTimer) {
+      setFirstTimer(true);
+    }
+
+    if (isfirstTimer) {
+      if (isfirstTimer === "false") {
+        setFirstTimer(false);
+        setEnterMain(true);
+      } else {
+        setFirstTimer(true);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (
+      screen.orientation.type.includes("landscape") &&
+      /Android|iPhone/i.test(navigator.userAgent)
+    ) {
+      setLandscapeMobile(true);
+    }
+  }, [windowSize]);
+
+  function getPuzzleAnimation(key: string) {
+    if (windowSize.width > 1024) {
+      switch (key) {
+        case lang.buildExperience[0]:
+          return { x: -400, y: -20 };
+        case lang.buildExperience[1]:
+          return { x: 400, y: -20 };
+        case lang.buildExperience[2]:
+          return { x: -400, y: 20 };
+        case lang.buildExperience[3]:
+          return { x: 400, y: 20 };
+        default:
+          return { x: 0, y: 0 };
+      }
+    } else if (windowSize.width > 768 && windowSize.width <= 1024) {
+      switch (key) {
+        case lang.buildExperience[0]:
+          return { x: -250, y: -25 };
+        case lang.buildExperience[1]:
+          return { x: 250, y: -25 };
+        case lang.buildExperience[2]:
+          return { x: -250, y: 25 };
+        case lang.buildExperience[3]:
+          return { x: 250, y: 25 };
+        default:
+          return { x: 0, y: 0 };
+      }
+    } else if (isLandScapeMobile) {
+      switch (key) {
+        case lang.buildExperience[0]:
+          return { x: -200, y: -25 };
+        case lang.buildExperience[1]:
+          return { x: 200, y: -25 };
+        case lang.buildExperience[2]:
+          return { x: -200, y: 25 };
+        case lang.buildExperience[3]:
+          return { x: 200, y: 25 };
+        default:
+          return { x: 0, y: 0 };
+      }
+    } else {
+      switch (key) {
+        case lang.buildExperience[0]:
+          return { x: -50, y: -75 };
+        case lang.buildExperience[1]:
+          return { x: 50, y: -75 };
+        case lang.buildExperience[2]:
+          return { x: -50, y: 75 };
+        case lang.buildExperience[3]:
+          return { x: 50, y: 75 };
+
+        default:
+          return { x: 0, y: 0 };
+      }
+    }
+  }
+
+  function returnToFirstpage() {
+    setEnterMain(true);
+    setEnterContent(false);
+  }
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main
+      className={`w-full bg-bkg relative`}
+      style={{ height: isLandScapeMobile ? height * 2 : height }}
+    >
+      <div className="h-full w-full relative flex items-center justify-center box-border pt-[80px]">
+        {firstTimer === true && (
+          <motion.div
+            className={`h-full w-full relative flex justify-center items-center flex-col`}
+            initial={{ y: 0, opacity: 1 }}
+            animate={{ y: height, opacity: 0 }}
+            transition={{ duration: 1, ease: "easeInOut", delay: 2 }}
+            onAnimationComplete={() => {
+              localStorage.setItem(firstTimerKey, "false");
+              setEnterMain(true);
+              setFirstTimer(false);
+            }}
           >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
+            {ripples.map((r, i) => (
+              <motion.div
+                key={r}
+                className={ripplesTWClass}
+                initial={{ opacity: 0 }}
+                animate={{
+                  scale: [1, 1.8, 1.6],
+                  opacity: [0, 1, 0],
+                }}
+                transition={{
+                  duration: 2,
+                  ease: "easeInOut",
+                  delay: 0.7 + i * 0.2,
+                }}
+              ></motion.div>
+            ))}
+
+            <motion.div
+              className={keyboarTWClass}
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+            >
+              <Image
+                src={keyBase}
+                alt="key base"
+                className="absolute top-0 left-0 h-[283.2px] w-[291.6px] md:h-[377.6px] md:w-[388.8px] lg:h-[472px] lg:w-[486px]"
+              />
+              <motion.img
+                src={key.src}
+                alt="key"
+                initial={{ opacity: 0 }}
+                animate={{ y: [0, 20, 0], opacity: 1 }}
+                transition={{
+                  duration: 0.5,
+                  ease: "easeInOut",
+                  delay: 0.5,
+                }}
+                className="absolute  top-[-6px] left-[6px] h-[270.8px]  w-[280px] md:h-[auto] md:w-[379.2px] lg:h-[448px] lg:w-[474px]"
+              />
+            </motion.div>
+            <motion.h1
+              className="font-bold text-[2rem] lg:text-[3rem] text-text selection:bg-accent absolute bottom-[25%] lg:bottom-[17%] text-center"
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.8, duration: 1 }}
+            >
+              {lang.landingName}
+            </motion.h1>
+            <motion.h1
+              className="font-bold text-[2rem] lg:text-[3rem] text-text selection:bg-accent absolute bottom-[15%] lg:bottom-[10%] text-center"
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.8, duration: 1 }}
+            >
+              {lang.landing2}
+            </motion.h1>
+          </motion.div>
+        )}
+
+        <AnimatePresence>
+          {enterMain && (
+            <>
+              <motion.h1
+                key="heading"
+                className="text-primary text-[5rem] pb-5 md:text-[8rem] lg:text-[9rem] font-extrabold self-start lg:-mt-5 relative"
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{
+                  opacity: 0,
+                  y: -height,
+                  transition: { delay: 0, duration: 0.2, ease: "easeInOut" },
+                }}
+                transition={{
+                  ease: "easeIn",
+                  duration: 0.8,
+                  delay: firstTimer ? 1.6 : 0.2,
+                }}
+              >
+                {lang.better}
+              </motion.h1>
+
+              <motion.div
+                className={`h-[55%] w-[45%] absolute top-[18%] md:top-[10%] lg:top-[30%]  `}
+                transition={{ duration: 1.5, delay: 1.5, ease: "easeInOut" }}
+                animate={{ opacity: 1, scale: 1.2 }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                exit={{
+                  opacity: 0,
+                  y: -height,
+                  transition: { delay: 0, duration: 1, ease: "easeInOut" },
+                }}
+                key="animationContainer"
+              >
+                <Lottie
+                  animationData={theme === light ? home1lt : home1dk}
+                  lottieRef={lottiref1}
+                  className="h-full w-full"
+                />
+              </motion.div>
+              <motion.div
+                className={`h-[250px] w-[250px] md:h-[350px] md:w-[350px] lg:h-[500px] lg:w-[500px] rounded-[50px] absolute top-60 left-50 ${
+                  theme === light ? "shadow-light" : ""
+                }`}
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{
+                  opacity: 0,
+                  y: -height,
+                  transition: { delay: 0, duration: 1, ease: "easeInOut" },
+                }}
+                key="puzzlesContainer"
+                transition={{
+                  ease: "easeIn",
+                  duration: 0.7,
+                  delay: firstTimer ? 1.6 : 0.2,
+                }}
+              >
+                <motion.div
+                  className="absolute top-0 left-0 h-[50%] min-w-[50%]"
+                  animate={getPuzzleAnimation(lang.buildExperience[0])}
+                  transition={{ ease: easeInOut, duration: 0.5, delay: 1 }}
+                >
+                  <Image
+                    className="h-[125px] w-[auto] md:h-[175px] lg:h-[250px] "
+                    src={theme === light ? puzzleTlL : puzzleTlD}
+                    alt="Puzzle 1"
+                  />
+                  <h2
+                    className={`${
+                      theme === light ? "text-bkg" : "text-text"
+                    } text-[1rem] font-semibold lg:text-[1.5rem] absolute top-[43%] left-[18%] md:left-[20%]  lg:top-[43%] lg:left-[25%]`}
+                  >
+                    {lang.buildExperience[0]}
+                  </h2>
+                </motion.div>
+                <motion.div
+                  className="absolute top-0 right-0 w-[50%] min-h-[50%]"
+                  animate={getPuzzleAnimation(lang.buildExperience[1])}
+                  transition={{ ease: easeInOut, duration: 0.5, delay: 1 }}
+                >
+                  <Image
+                    className="w-[125px] h-[auto] md:w-[175px] lg:w-[250px] "
+                    src={theme === light ? puzzleTrL : puzzleTrD}
+                    alt="Puzzle 1"
+                  />
+                  <h2
+                    className={`${
+                      theme === light ? "text-bkg" : "text-text"
+                    } text-[1rem] font-semibold lg:text-[1.5rem] absolute top-[38%] left-[20%] md:left-[25%]  lg:top-[38%] lg:left-[30%]`}
+                  >
+                    {lang.buildExperience[1]}
+                  </h2>
+                </motion.div>
+                <motion.div
+                  className="absolute bottom-0 left-0 w-[50%] min-h-[50%]"
+                  animate={getPuzzleAnimation(lang.buildExperience[2])}
+                  transition={{ ease: easeInOut, duration: 0.5, delay: 1 }}
+                >
+                  <Image
+                    className="w-[125px] h-[auto] md:w-[175px] lg:w-[250px] "
+                    src={theme === light ? puzzleBlL : puzzleBlD}
+                    alt="Puzzle 1"
+                  />
+                  <h2
+                    className={`${
+                      theme === light ? "text-text" : "text-bkg"
+                    }  text-[1rem] font-semibold lg:text-[1.5rem] absolute top-[50%] left-[18%] md:left-[20%]  lg:top-[50%] lg:left-[30%]`}
+                  >
+                    {lang.buildExperience[2]}
+                  </h2>
+                </motion.div>
+                <motion.div
+                  className="absolute bottom-0 right-0 h-[50%] min-w-[50%]"
+                  animate={getPuzzleAnimation(lang.buildExperience[3])}
+                  transition={{ ease: easeInOut, duration: 0.5, delay: 1 }}
+                >
+                  <Image
+                    className="h-[125px] w-[auto] md:h-[175px] lg:h-[250px]"
+                    src={theme === light ? puzzleBrL : puzzleBrD}
+                    alt="Puzzle 1"
+                  />
+                  <h2
+                    className={`${
+                      theme === light ? "text-text" : "text-bkg"
+                    } text-[1rem] font-semibold lg:text-[1.5rem] absolute top-[42%] left-[30%]  md:left-[35%]  lg:top-[42%] lg:left-[40%]`}
+                  >
+                    {lang.buildExperience[3]}
+                  </h2>
+                </motion.div>
+              </motion.div>
+              <motion.div
+                className="absolute bottom-1 left-50"
+                key="buttonContainer"
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{
+                  opacity: 0,
+                  y: -height,
+                  transition: { delay: 0, duration: 1, ease: "easeInOut" },
+                }}
+                transition={{
+                  ease: "easeIn",
+                  duration: 0.8,
+                  delay: firstTimer ? 2 : 0.6,
+                }}
+              >
+                <Button
+                  label="continue"
+                  styles=" "
+                  size="sm"
+                  onClick={() => {
+                    setEnterMain(false);
+                    setEnterContent(true);
+                  }}
+                  icon={
+                    <HiOutlineChevronDown className="h-5 w-5 text-accent" />
+                  }
+                />
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+        <AnimatePresence>
+          {enterContent && (
+            <MainContentContainer
+              height={height + 10}
+              returnToFirstPage={() => {
+                returnToFirstpage();
+              }}
             />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+          )}
+        </AnimatePresence>
       </div>
     </main>
-  )
+  );
 }
