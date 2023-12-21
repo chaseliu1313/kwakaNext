@@ -1,10 +1,10 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import useTheme from "@hooks/useTheme";
+import React, { useState } from "react";
+
 import { motion } from "framer-motion";
-import { light } from "@constant/values";
+
 import ContentContainer from "./contentContainer";
-import Purpose from "./mainContents/purpose";
+
 const content = [1, 2, 3, 4];
 const scrollDownThreshold = 0.05;
 const scrollUpThreshold = 0.8;

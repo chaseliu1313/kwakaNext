@@ -4,6 +4,8 @@ import { Comfortaa } from "next/font/google";
 import { LanguageContextProvider } from "@lan/index";
 import NavBar from "@component/navBar/navBar";
 import { light } from "@constant/values";
+import Script from "next/script";
+import Head from "next/head";
 
 const comfortaa = Comfortaa({ subsets: ["latin"] });
 

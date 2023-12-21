@@ -302,6 +302,9 @@ export default function Mobile(props: MainContentProps) {
           />
         </motion.div>
       </div>
+      <p className="absolute bottom-0 left-2 text-[8px] font-light">
+        {lang.cr.disclaim}
+      </p>
     </motion.div>
   );
 }

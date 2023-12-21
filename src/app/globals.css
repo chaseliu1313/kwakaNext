@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-.content-container {
+iframe[title="Widget containing a Cloudflare security challenge"] {
+  border-radius: 30px;
+  margin-top: 10px;
 }
 
 @keyframes shadowFadein {

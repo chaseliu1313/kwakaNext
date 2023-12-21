@@ -84,7 +84,7 @@ export default function Purpose(props: MainContentProps) {
         scale: props.currentSection === 0 ? 1 : 0.9,
       }}
       transition={{ duration: 0.3 }}
-      className="h-full w-full flex flex-col md:flex-row justify-evenly items-center overflow-hidden bg-bkg"
+      className="h-full w-full flex flex-col md:flex-row justify-evenly items-center overflow-hidden bg-bkg relative"
     >
       <div
         className={`h-[80%] w-full md:h-[70%] md:w-[400px] lg:h-[80%] lg:w-[50%] flex flex-col justify-start items-center text-center md:text-left `}
@@ -172,6 +172,9 @@ export default function Purpose(props: MainContentProps) {
           />
         </div>
       </div>
+      <p className="absolute bottom-0 left-2 text-[8px] font-light">
+        {lang.cr.disclaim}
+      </p>
     </motion.div>
   );
 }

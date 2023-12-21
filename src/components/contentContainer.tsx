@@ -5,6 +5,7 @@ import Purpose from "./mainContents/purpose";
 import DataV from "./mainContents/data";
 import Mobile from "./mainContents/mobile";
 import HowToHelp from "./mainContents/help";
+import { useLanguage } from "@hooks/useLanguage";
 
 type Props = {
   id: number;
@@ -17,7 +18,7 @@ type Props = {
 
 export default function ContentContainer(props: Props) {
   return (
-    <section className={`content-container h-[calc(100vh-80px)] w-full `}>
+    <section className={`content-container h-[calc(100vh-80px)] w-full   `}>
       {props.id == 1 && (
         <Purpose
           goForward={props.goForward}

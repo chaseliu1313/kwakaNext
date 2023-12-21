@@ -371,6 +371,9 @@ export default function Home() {
                   }
                 />
               </motion.div>
+              <p className="absolute -bottom-[85px] left-2 text-[8px] font-light">
+                {lang.cr.disclaim}
+              </p>
             </>
           )}
         </AnimatePresence>

@@ -4,7 +4,17 @@ export enum langKey {
   fr = "fr",
 }
 
+export type CaseStudy = {
+  title: string;
+  background: string[];
+  challenge: { title: string; content: string }[];
+  solution: { title: string; content: string }[];
+  result: string[];
+};
+
 export type Translation = {
+  [key: string]: string | string[] | object;
+
   home: string;
   blog: string;
   menu: string;
@@ -53,11 +63,32 @@ export type Translation = {
   crossPDetails: string;
   tech: string;
   ourtechs: string[];
+  caseStudy: {
+    background: string;
+    challenge: string;
+    solution: string;
+    result: string;
+  };
+  trucklog: CaseStudy;
+  compass: CaseStudy;
+  camh: CaseStudy;
   control: {
     back: string;
     continue: string;
     magic: string;
     backToTop: string;
+    nowReading: string;
+    success: string;
+    error: string;
+  };
+  prompt: {
+    messageSent: string;
+    messageError: string;
+  };
+  cr: {
+    logo: string;
+    disclaim: string;
+    caseStudy: string;
   };
 };
 export enum transLabel {

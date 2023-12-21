@@ -121,7 +121,7 @@ export default function HowToHelp(
       className="h-full w-full flex flex-col-reverse md:flex-row justify-evenly items-center overflow-hidden bg-bkg relative"
     >
       <div
-        className={`h-[35%] w-full md:h-[70%] md:w-[50%] lg:h-[80%] lg:w-[50%] flex flex-col justify-start items-center text-center md:text-left pt-5 z-1 [z-index:1]`}
+        className={`h-[35%] w-full md:h-[70%] md:w-[50%] lg:h-[80%] lg:w-[50%] flex flex-col justify-start items-center text-center md:text-left md:pt-5 z-1 [z-index:1]`}
       >
         <motion.h1
           className={`text-text text-xl md:text-3xl    ${
@@ -135,7 +135,7 @@ export default function HowToHelp(
           alt="illustration"
           className="h-[70%] w-[auto] pt-2"
         />
-        <div className="h-full w-full lg:w-[90%] pb-2 md:pb-0 md:h-[20%] md:w-full flex md:flex-row justify-evenly items-end ">
+        <div className="h-full w-full lg:w-[90%] pb-2 md:pb-0 md:h-[20%] md:w-full flex md:flex-row justify-evenly md:items-end items-center">
           <Button
             label={lang.control.back}
             size="sm"
@@ -182,9 +182,9 @@ export default function HowToHelp(
             ))}
           </div>
         </div>
-        <div className="hidden [@media(min-height:790px)]:flex h-[10%] w-full self-end justify-start items-center text-primary relative [&>svg]:w-10 [&>svg]:h-10 [&>svg]:mr-2">
+        <div className="hidden [@media(min-height:910px)]:flex h-[10%] w-full self-end justify-start items-center text-primary relative [&>svg]:w-10 [&>svg]:h-10 [&>svg]:mr-2 mt-10 md:mt-0 ">
           <h2
-            className={`text-text text:xl md:text:2xl lg:text-2xl font-semibold absolute -top-10 left-0`}
+            className={`hidden md:block text-text text:xl md:text:2xl lg:text-2xl font-semibold absolute -top-10 left-0`}
           >
             {lang.tech}
           </h2>
@@ -205,6 +205,9 @@ export default function HowToHelp(
           <SiAzuredevops />
         </div>
       </div>
+      <p className="absolute bottom-0 left-2 text-[8px] font-light">
+        {lang.cr.disclaim}
+      </p>
     </motion.div>
   );
 }

@@ -37,7 +37,7 @@ const BrandBox = ({
   const { theme } = useTheme();
   return (
     <motion.div
-      className={`md:h-[200px] md:w-[200px]  h-[100px]  w-[100px] rounded-2xl text-center p-2 box-border bg-bkg flex justify-center items-center ${
+      className={`   h-[100px]  w-[100px] lg:h-[200px] lg:w-[200px] rounded-2xl text-center p-2 box-border bg-bkg flex justify-center items-center ${
         theme === light ? "shadow-light" : "shadow-dark"
       }`}
       animate={{
@@ -79,7 +79,7 @@ export default function DataV(props: MainContentProps) {
         scale: isInView ? 1 : 0.9,
       }}
       transition={{ duration: 0.3 }}
-      className="h-full w-full flex flex-col-reverse md:flex-row justify-evenly items-center overflow-hidden bg-bkg"
+      className="h-full w-full flex flex-col-reverse md:flex-row justify-evenly items-center overflow-hidden bg-bkg relative"
     >
       <div
         className={`fadein-container flex flex-row md:flex-col justify-end h-[15%] w-[80%] md:h-[40%] md:w-[50%] lg:h-[500px] lg:w-[500px] relative`}
@@ -153,7 +153,7 @@ export default function DataV(props: MainContentProps) {
           >
             {lang.ourClients}
           </h2>
-          <div className="h-full w-full p-4 box-border flex justify-evenly items-start">
+          <div className="h-full w-full p-4 box-border flex justify-evenly items-start relative">
             {brands.map((a, i) => (
               <BrandBox
                 alt={a.alt}
@@ -163,9 +163,15 @@ export default function DataV(props: MainContentProps) {
                 shouldAnimate={isInView}
               />
             ))}
+            <p className="absolute  top-[130px] lg:top-[230px] left-8 text-[8px] font-light">
+              {lang.cr.logo}
+            </p>
           </div>
         </div>
       </div>
+      <p className="absolute bottom-0 left-2 text-[8px] font-light">
+        {lang.cr.disclaim}
+      </p>
     </motion.div>
   );
 }
