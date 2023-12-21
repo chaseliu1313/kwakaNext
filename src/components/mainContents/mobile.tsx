@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { light } from "@constant/values";
@@ -36,7 +37,6 @@ export default function Mobile(props: MainContentProps) {
     if (lottiref1 && lottiref1.current) {
       lottiref1.current.setSpeed(0.2);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [theme, lottiref1.current]);
 
   function getAnimationX(imgId: number): string[] | number[] {
