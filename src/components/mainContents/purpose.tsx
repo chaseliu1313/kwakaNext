@@ -79,10 +79,10 @@ export default function Purpose(props: MainContentProps) {
 
   return (
     <motion.div
-      animate={{
-        opacity: props.currentSection === 0 ? 1 : 0,
-        scale: props.currentSection === 0 ? 1 : 0.9,
-      }}
+      // animate={{
+      //   opacity: props.currentSection === 0 ? 1 : 0,
+      //   scale: props.currentSection === 0 ? 1 : 0.9,
+      // }}
       transition={{ duration: 0.3 }}
       className="h-full w-full flex flex-col md:flex-row justify-evenly items-center overflow-hidden bg-bkg relative"
     >

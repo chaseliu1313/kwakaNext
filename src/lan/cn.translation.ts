@@ -66,7 +66,7 @@ export const cn: Translation = {
   control: {
     back: "上一页",
     continue: "下一页",
-    magic: "魔法",
+    magic: "更多",
     backToTop: "回到顶部",
     nowReading: "正在阅读：",
     success: "成功",

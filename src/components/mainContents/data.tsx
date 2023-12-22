@@ -74,10 +74,10 @@ export default function DataV(props: MainContentProps) {
   }, [props.currentSection]);
   return (
     <motion.div
-      animate={{
-        opacity: isInView ? 1 : 0,
-        scale: isInView ? 1 : 0.9,
-      }}
+      // animate={{
+      //   opacity: isInView ? 1 : 0,
+      //   scale: isInView ? 1 : 0.9,
+      // }}
       transition={{ duration: 0.3 }}
       className="h-full w-full flex flex-col-reverse md:flex-row justify-evenly items-center overflow-hidden bg-bkg relative"
     >

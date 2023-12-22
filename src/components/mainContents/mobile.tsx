@@ -32,7 +32,8 @@ export default function Mobile(props: MainContentProps) {
   const [scopeImg1, animateImg1] = useAnimate();
   const [scopeImg2, animateImg2] = useAnimate();
   const [isRevealed, setIsRevealed] = useState<boolean>(false);
-  const [breakpoint, setBreakpoint] = useState("lg");
+  const [breakpoint, setBreakpoint] = useState(getBreakpoint());
+
   useEffect(() => {
     if (lottiref1 && lottiref1.current) {
       lottiref1.current.setSpeed(0.2);
@@ -130,26 +131,35 @@ export default function Mobile(props: MainContentProps) {
     }
   }, [isRevealed]);
 
-  useEffect(() => {
-    if (windowSize.width < 768 && breakpoint !== "sm") {
-      setBreakpoint("sm");
-    } else if (
-      windowSize.width < 1024 &&
-      windowSize.width >= 768 &&
-      breakpoint !== "md"
-    ) {
-      setBreakpoint("md");
+  function getBreakpoint(): string {
+    if (windowSize.width < 768) {
+      return "sm";
+    } else if (windowSize.width < 1024 && windowSize.width >= 768) {
+      return "md";
     } else {
-      if (breakpoint !== "lg") setBreakpoint("lg");
+      return "lg";
     }
-  }, [windowSize]);
+  }
+
+  useEffect(() => {
+    if (windowSize.width < 768) {
+      setBreakpoint("sm");
+      return;
+    } else if (windowSize.width < 1024 && windowSize.width >= 768) {
+      setBreakpoint("md");
+      return;
+    } else {
+      setBreakpoint("lg");
+      return;
+    }
+  }, []);
 
   return (
     <motion.div
-      animate={{
-        opacity: isInView ? 1 : 0,
-        scale: isInView ? 1 : 0.9,
-      }}
+      // animate={{
+      //   opacity: isInView ? 1 : 0,
+      //   scale: isInView ? 1 : 0.9,
+      // }}
       transition={{ duration: 0.3 }}
       className="h-full w-full flex flex-col md:flex-row justify-evenly items-center overflow-hidden bg-bkg relative"
     >
@@ -235,7 +245,7 @@ export default function Mobile(props: MainContentProps) {
         className={`h-[35%] w-full md:h-[70%] md:w-[50%] lg:h-[80%] lg:w-[50%] flex flex-col justify-start items-center text-center md:text-left pt-5 md:pt-0 z-1 [z-index:1]`}
       >
         <motion.h1
-          className={`text-text text-xl md:text-3xl lg:w-full mt-10 md:mt-0 ${
+          className={`text-text text-xl md:text-3xl lg:w-full mt-[3rem] md:mt-0 ${
             lang.trans_label === transLabel.fr ? "lg:text-4xl" : "lg:text-6xl"
           } font-extrabold leading-loose selection:bg-accent `}
           animate={isRevealed ? { x: 200, opacity: 0 } : { x: 0, opacity: 1 }}
@@ -244,7 +254,7 @@ export default function Mobile(props: MainContentProps) {
             if (i > 0) {
               return (
                 <span
-                  className={`${i === 1 ? "text-warning" : "text-success"}`}
+                  className={`${i === 1 ? "text-primary" : "text-success"}`}
                   key={l}
                 >
                   {l}

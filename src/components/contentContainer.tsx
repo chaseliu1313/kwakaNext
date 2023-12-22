@@ -18,7 +18,9 @@ type Props = {
 
 export default function ContentContainer(props: Props) {
   return (
-    <section className={`content-container h-[calc(100vh-80px)] w-full   `}>
+    <section
+      className={`content-container h-[calc(100vh-80px)] w-full snap-start snap-mandatory  `}
+    >
       {props.id == 1 && (
         <Purpose
           goForward={props.goForward}

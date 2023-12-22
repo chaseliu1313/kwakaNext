@@ -93,7 +93,7 @@ const Projects = () => {
   return (
     <div className="h-screen w-full flex  md:flex-row justify-evenly items-center overflow-hidden box-border pt-[90px] relative px-2">
       <motion.div
-        className="w-full md:w-[35%] bg-bkg h-[20%] absolute top-[90px] left-0 p-2 box-border z-20"
+        className="hidden md:block w-full md:w-[35%] bg-bkg h-[20%] absolute top-[90px] left-0 p-2 box-border z-20"
         initial={{ y: -200, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4, ease: easeIn, delay: 0.3 }}
@@ -142,7 +142,7 @@ const Projects = () => {
         </motion.div>
       </motion.div>
       <motion.div
-        className="h-full w-[65%] bg-bkg"
+        className="h-full w-[100%] md:w-[65%] bg-bkg"
         initial={{ x: 500, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.4, ease: easeIn }}

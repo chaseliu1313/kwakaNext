@@ -32,7 +32,7 @@ export default function Home() {
   const { windowSize } = useWindowResize();
   const { lang } = useLanguage();
   const { theme } = useTheme();
-  const height = windowSize.height - 90;
+  const height = windowSize.height;
   const lottiref1 = useRef<LottieRefCurrentProps | null>(null);
   const [firstTimer, setFirstTimer] = useState<boolean>(true);
   const [enterMain, setEnterMain] = useState<boolean>(false);
@@ -278,6 +278,7 @@ export default function Home() {
                     className="h-[125px] w-[auto] md:h-[175px] lg:h-[250px] "
                     src={theme === light ? puzzleTlL : puzzleTlD}
                     alt="Puzzle 1"
+                    priority
                   />
                   <h2
                     className={`${

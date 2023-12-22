@@ -400,14 +400,12 @@ const Contact = () => {
                 bound.execute();
               }}
               onVerify={(token) => {
-                console.log(token);
                 if (token) {
                   setVerified(true);
                 }
               }}
               onError={(error) => {
                 if (error) setVerified(false);
-                console.log({ error });
               }}
               onExpire={() => {
                 setVerified(false);

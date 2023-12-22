@@ -108,20 +108,20 @@ export default function HowToHelp(
   const { lang } = useLanguage();
   const { windowSize } = useWindowResize();
   const lottiref1 = useRef<LottieRefCurrentProps | null>(null);
-  const isInView = props.currentSection === 3;
+  const isInView = true; //props.currentSection === 3;
   const router = useRouter();
 
   return (
     <motion.div
-      animate={{
-        opacity: isInView ? 1 : 0,
-        scale: isInView ? 1 : 0.9,
-      }}
+      // animate={{
+      //   opacity: isInView ? 1 : 0,
+      //   scale: isInView ? 1 : 0.9,
+      // }}
       transition={{ duration: 0.3 }}
       className="h-full w-full flex flex-col-reverse md:flex-row justify-evenly items-center overflow-hidden bg-bkg relative"
     >
       <div
-        className={`h-[35%] w-full md:h-[70%] md:w-[50%] lg:h-[80%] lg:w-[50%] flex flex-col justify-start items-center text-center md:text-left md:pt-5 z-1 [z-index:1]`}
+        className={`h-[35%] w-full md:h-[70%] md:w-[50%] lg:h-[80%] lg:w-[50%] flex md:flex-col justify-start items-center text-center md:text-left md:pt-5 z-1 [z-index:1]`}
       >
         <motion.h1
           className={`text-text text-xl md:text-3xl    ${
@@ -135,7 +135,7 @@ export default function HowToHelp(
           alt="illustration"
           className="h-[70%] w-[auto] pt-2"
         />
-        <div className="h-full w-full lg:w-[90%] pb-2 md:pb-0 md:h-[20%] md:w-full flex md:flex-row justify-evenly md:items-end items-center">
+        <div className="h-full w-full lg:w-[90%] pb-2 md:pb-0 md:h-[20%] flex-col md:flex-row md:w-full flex  justify-evenly md:items-end items-center">
           <Button
             label={lang.control.back}
             size="sm"
