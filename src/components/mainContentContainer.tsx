@@ -74,16 +74,26 @@ const MainContentContainer = ({
     if (currentSection === 0) {
       returnToFirstPage();
     } else {
-      window.scrollTo(0, (currentSection - 1) * height);
-      setCurrentSection(currentSection - 1);
+      if (ref && ref.current) {
+        ref.current.scrollTo({
+          top: (currentSection - 1) * height,
+          left: 0,
+          behavior: "smooth",
+        });
+        setCurrentSection(currentSection - 1);
+      }
     }
   };
 
   const goForward = (): void => {
     console.log({ currentSection });
-    if (currentSection < content.length - 1) {
+    if (currentSection < content.length - 1 && ref && ref.current) {
       console.log("scroll");
-      window.scrollTo(0, (currentSection + 1) * height);
+      ref.current.scrollTo({
+        top: (currentSection + 1) * height,
+        left: 0,
+        behavior: "smooth",
+      });
       setCurrentSection(currentSection + 1);
       return;
     }
@@ -107,13 +117,19 @@ const MainContentContainer = ({
     // //     setCurrentTitle(titles[titleIndex]);
     // //   }
     // // }
-    window.scrollTo(0, Math.round(v / height) * height);
+
+    // setTimeout(() => {
+    //   if (ref && ref.current) {
+    //     //ref.current.scrollTo(0, Math.round(v / height) * height);
+    //   }
+    // }, 500);
+
     setCurrentSection(Math.round(v / height));
   });
 
   return (
     <motion.div
-      className="h-full w-full bg-bkg relative snap-y overflow-y-auto"
+      className="h-full w-full bg-bkg relative snap-y overflow-y-auto scroll-smooth"
       initial={{ y: height, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.9, duration: 1.5 }}
