@@ -372,7 +372,7 @@ export default function Home() {
                   }
                 />
               </motion.div>
-              <p className="absolute -bottom-[85px] left-2 text-[8px] font-light">
+              <p className="absolute bottom-0 left-2 text-[8px] font-light text-text">
                 {lang.cr.disclaim}
               </p>
             </>
@@ -381,7 +381,7 @@ export default function Home() {
         <AnimatePresence>
           {enterContent && (
             <MainContentContainer
-              height={height + 10}
+              height={height}
               returnToFirstPage={() => {
                 returnToFirstpage();
               }}
