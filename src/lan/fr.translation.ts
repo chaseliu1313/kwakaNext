@@ -12,6 +12,7 @@ export const fr: Translation = {
   about: "À propos",
   trans_label: transLabel.fr,
   dark_mode: "Sombre",
+  catalog: "Catalogue",
   light_mode: "Lumière",
   better: "Meilleure",
   buildExperience: ["expérience", "produits", "branding", "soutien technique"],

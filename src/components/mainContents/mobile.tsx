@@ -267,7 +267,7 @@ export default function Mobile(props: MainContentProps) {
         </motion.h1>
         <div className="w-full flex justify-center items-center md:inline-block z-1">
           <motion.p
-            className={`text:xl md:text:2xl w-[70%] md:w-[95%]  ${
+            className={`text:xl md:text:2xl w-[95%] md:w-[95%]  ${
               lang.trans_label === transLabel.fr ? "lg:text-3xl" : "lg:text-4xl"
             } text-text leading-normal selection:bg-accent font-light mt-4`}
             animate={isRevealed ? { x: 200, opacity: 0 } : { x: 0, opacity: 1 }}

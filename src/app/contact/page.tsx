@@ -219,7 +219,7 @@ const Contact = () => {
       <div
         className={`h-[80%] w-full md:h-[400px] md:w-[400px] lg:h-[80%] lg:w-[50%] flex flex-col justify-center items-center   `}
       >
-        <h1 className="text-text text-[4rem] lg:text-[6rem] font-extrabold">
+        <h1 className="text-text text-[2.5rem] lg:text-[6rem] font-extrabold">
           {lang.contactUs}
         </h1>
         <div className="w-full h-full flex flex-col md:flex-row  justify-start md:justify-evenly items-center">

@@ -14,6 +14,7 @@ export const en: Translation = {
   dark_mode: "Dark",
   light_mode: "Light",
   better: "Better",
+  catalog: "Catalog",
   buildExperience: ["experience", "products", "branding", "support"],
   makeWebsite: "We design and build",
   makeWebsite1: " user-centered,",

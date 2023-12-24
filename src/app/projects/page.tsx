@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import Button from "@component/button";
 import CaseStudyArticle from "./ariticle";
 import { CaseStudy } from "@lan/translation.interface";
+import { ImBooks } from "react-icons/im";
 const projectTitles: string[] = ["", "", "trucklog", "compass", "camh", "", ""]; //key of getting the articles
 const titles = projectTitles.filter((t) => t !== "");
 
@@ -16,12 +17,10 @@ const TitleCard = ({
   text,
   order,
   current,
-
   onClick,
 }: {
   text: string;
   order: number;
-
   current: number;
   onClick: () => void;
 }) => {
@@ -52,7 +51,10 @@ const Projects = () => {
   const [cardHeight, setCardheight] = useState(0);
   const [currentArticle, setCurrentArticle] = useState<number>(0);
   const [currentTitle, setCurrentTitle] = useState(titles[0]);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
+
+  console.log({ currentTitle, currentArticle });
   const { scrollY } = useScroll({
     container: ref,
     offset: ["start start", "end end"],
@@ -91,7 +93,69 @@ const Projects = () => {
   }
 
   return (
-    <div className="h-screen w-full flex  md:flex-row justify-evenly items-center overflow-hidden box-border pt-[90px] relative px-2">
+    <div className="h-screen w-full flex flex-col  md:flex-row justify-evenly items-center overflow-hidden box-border pt-[90px] relative px-2">
+      <h1 className="md:hidden text-text text-[4rem] lg:text-[6rem] font-extrabold bg-bkg mt-[80px]">
+        {lang.projects}
+      </h1>
+      <motion.div
+        initial={{ left: "-50%" }}
+        animate={{ left: mobileOpen ? "0" : "-50%" }}
+        transition={{ type: "spring", stiffness: 30 }}
+        className="md:hidden h-[350px] w-[50%] bg-bkg fixed left-0 top-[15%] z-50 text-center rounded-br-3xl p-2"
+      >
+        <h2 className="font-bold text-lg">{lang.catalog}</h2>
+        {titles.map((t, i) => {
+          const value = lang[t];
+          let title = "";
+          if (typeof value === "object" && "title" in value) {
+            title = value.title as string;
+            title = title.substring(title.indexOf(":") + 1);
+          }
+          return (
+            <button
+              key={i}
+              className={`mt-5 border-primary ${
+                currentTitle === t ? "border" : "border-none"
+              } border-solid box-border rounded-2xl p-1`}
+              aria-label="go to case study:"
+              onClick={() => {
+                const index = titles.indexOf(t);
+                if (index >= 0 && index < 3) {
+                  setCurrentArticle(index);
+                  setCurrentTitle(t);
+                  setMobileOpen(false);
+                }
+              }}
+            >
+              <p
+                className={`text-left ${
+                  currentTitle === t ? "text-primary" : "text-text"
+                }`}
+              >
+                {title}
+              </p>
+            </button>
+          );
+        })}
+
+        <div className="md:hidden h-[50px] w-[50px] rounded-br-3xl rounded-tr-3xl absolute -right-[50px] top-0 bg-danger">
+          <button
+            role="button"
+            type="button"
+            aria-label={`button to open table of conetnt: currently it is ${
+              mobileOpen ? "closed" : "open"
+            }`}
+            className={`h-[50px] w-[50px] rounded-br-3xl rounded-tr-3xl bg-bkg relative flex items-center justify-center ${
+              theme === light ? "shadow-light" : "shadow-dark"
+            }`}
+            onClick={() => {
+              setMobileOpen(!mobileOpen);
+            }}
+          >
+            <ImBooks className="text-primary w-[35px] h-[35px]" />
+          </button>
+        </div>
+      </motion.div>
       <motion.div
         className="hidden md:block w-full md:w-[35%] bg-bkg h-[20%] absolute top-[90px] left-0 p-2 box-border z-20"
         initial={{ y: -200, opacity: 0 }}

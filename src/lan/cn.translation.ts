@@ -13,6 +13,7 @@ export const cn: Translation = {
   landing2: "Your web/mobile design partner.",
   dark_mode: "暗",
   light_mode: "亮",
+  catalog: "目录",
   buildExperience: ["用户体验", "产品", "品牌形象", "技术支持"],
   better: "更优秀的",
   makeWebsite: "搭建以",

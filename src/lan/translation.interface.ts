@@ -14,7 +14,7 @@ export type CaseStudy = {
 
 export type Translation = {
   [key: string]: string | string[] | object;
-
+  catalog: string;
   home: string;
   blog: string;
   menu: string;

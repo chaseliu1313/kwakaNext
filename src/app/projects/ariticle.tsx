@@ -21,7 +21,7 @@ export default function CaseStudyArticle({ article, lang }: Props) {
   const ref = useRef<HTMLElement | null>(null);
   return (
     <section
-      className="h-full w-full p-4 overflow-y-auto text-text box-border relative"
+      className="h-full w-full p-4 overflow-y-auto text-text box-border relative pb-[30%] md:pb-1"
       id="article"
       ref={ref}
     >
