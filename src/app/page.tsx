@@ -227,7 +227,7 @@ export default function Home() {
                 transition={{
                   ease: "easeIn",
                   duration: 0.8,
-                  delay: firstTimer ? 1.6 : 0.2,
+                  delay: firstTimer ? 1.6 : 0,
                 }}
               >
                 {lang.better}
@@ -266,7 +266,7 @@ export default function Home() {
                 transition={{
                   ease: "easeIn",
                   duration: 0.7,
-                  delay: firstTimer ? 1.6 : 0.2,
+                  delay: firstTimer ? 1.6 : 0,
                 }}
               >
                 <motion.div

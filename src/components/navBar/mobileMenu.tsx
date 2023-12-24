@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import useTheme from "@hooks/useTheme";
 import { light, dark } from "@constant/values";
@@ -14,7 +14,7 @@ export default function MobileMenu() {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [mobileRotate, setMobileRotate] = useState<number>(0);
   const [rotate, setRotation] = useState<number>(0);
-
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const onRotateFinish = () => {
     setRotation(0);
   };
@@ -35,13 +35,30 @@ export default function MobileMenu() {
   }, [menuOpen]);
 
   useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        containerRef &&
+        containerRef.current &&
+        event.target instanceof Element
+      ) {
+        if (!containerRef.current.contains(event.target)) {
+          setMenuOpen(false);
+        }
+      }
+    };
+    document.addEventListener("click", handleClickOutside, true);
     return () => {
       setMenuOpen(false);
+      document.removeEventListener("click", handleClickOutside, true);
     };
   }, []);
 
   return (
-    <div className="h-full w-full flex-row items-center pr-5 pl-10 box-border justify-end md:hidden flex relative">
+    <div
+      className="h-full w-full flex-row items-center pr-5 pl-10 box-border justify-end md:hidden flex relative"
+      id="mobile_menu_container"
+      ref={containerRef}
+    >
       <button
         role="button"
         type="button"

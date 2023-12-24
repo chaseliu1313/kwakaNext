@@ -54,7 +54,6 @@ const Projects = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
 
-  console.log({ currentTitle, currentArticle });
   const { scrollY } = useScroll({
     container: ref,
     offset: ["start start", "end end"],

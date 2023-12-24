@@ -86,9 +86,7 @@ const MainContentContainer = ({
   };
 
   const goForward = (): void => {
-    console.log({ currentSection });
     if (currentSection < content.length - 1 && ref && ref.current) {
-      console.log("scroll");
       ref.current.scrollTo({
         top: (currentSection + 1) * height,
         left: 0,
