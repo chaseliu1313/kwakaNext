@@ -152,7 +152,7 @@ export default function Mobile(props: MainContentProps) {
       setBreakpoint("lg");
       return;
     }
-  }, []);
+  }, [windowSize]);
 
   return (
     <motion.div

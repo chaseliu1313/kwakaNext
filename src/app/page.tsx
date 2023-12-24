@@ -234,7 +234,7 @@ export default function Home() {
               </motion.h1>
 
               <motion.div
-                className={`h-[55%] w-[45%] absolute top-[18%] md:top-[10%] lg:top-[30%]  `}
+                className={`h-[250px] w-[250px] md:h-[350px] md:w-[350px] lg:h-[500px] lg:w-[500px] absolute top-60   `}
                 transition={{ duration: 1.5, delay: 1.5, ease: "easeInOut" }}
                 animate={{ opacity: 1, scale: 1.2 }}
                 initial={{ opacity: 0, scale: 0.8 }}
