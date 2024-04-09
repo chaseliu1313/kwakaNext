@@ -1,25 +1,23 @@
 "use client";
-import { useEffect, useRef, UIEvent, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMotionValueEvent, useScroll } from "framer-motion";
+import { useWindowResize } from "@hooks/useWindowResize";
 import HomePage from "@component/homePage";
 import Purpose from "@component/mainContents/purpose";
 import DataV from "@component/mainContents/data";
 import HowToHelp from "@component/mainContents/help";
 import Mobile from "@component/mainContents/mobile";
 import Footer from "@component/footer";
-const innerH = window.innerHeight;
 
 export default function Home() {
+  const { windowSize } = useWindowResize();
   const ref = useRef<HTMLDivElement | null>(null);
   const { scrollY, scrollYProgress } = useScroll({ container: ref });
-  const [scrolledY, setScrollY] = useState(0);
+
   const [scrollLocation, setScrollLocation] = useState(0);
-  const elHeight = ref.current?.scrollHeight ?? 0;
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    setScrollY(latest);
-  });
+
   useMotionValueEvent(scrollY, "change", (latest) => {
-    setScrollLocation(latest / innerH);
+    setScrollLocation(latest / windowSize.height);
   });
 
   useEffect(() => {

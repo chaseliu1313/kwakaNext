@@ -1,13 +1,8 @@
 "use client";
-import { ReactElement, useEffect, useRef, useState } from "react";
+import { ReactElement, useEffect, useRef } from "react";
 import { light } from "@constant/values";
 import useTheme from "@hooks/useTheme";
-import {
-  motion,
-  MotionValue,
-  useInView,
-  useMotionValueEvent,
-} from "framer-motion";
+import { motion } from "framer-motion";
 import aniL from "@public/animation/kwaka_home_2_lt.json";
 import aniD from "@public/animation/kwaka_home_2_dk.json";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
@@ -47,7 +42,6 @@ export default function Purpose({ isInView }: { isInView: boolean }) {
   return (
     <motion.section
       id="purpose"
-      //animate={{ opacity: isInView ? 1 : 0 }}
       transition={{ duration: 0.3 }}
       className="h-screen w-full box-border pt-[80px] flex flex-col md:flex-row justify-evenly items-center bg-bkg relative snap-start md:px-2 lg:px-0"
     >
