@@ -28,18 +28,20 @@ export default function Button(props: ButtonProps) {
       
       ${
         props.size === "xs"
-          ? "min-w-[100px] h-[30px] md:h-[50px]"
+          ? "min-w-[100px] min-h-[30px] h-[30px] md:h-[50px] md:min-h-[50px]"
           : props.size === "sm"
-          ? "min-w-[100px] h-[40px] md:h-[50px] w-[100px] md:w-[110px] lg:w-[150px]"
+          ? "min-w-[100px] h-[40px] min-h-[40px] md:h-[50px] w-[100px] md:w-[110px] lg:w-[150px]"
           : props.size === "md"
-          ? "min-w-[200px] h-[60px] md:h-[80px]"
-          : "min-w-[200px] h-[80px] md:h-[100px]"
+          ? "min-w-[200px] h-[60px] min-h-[60px] md:h-[80px]"
+          : "min-w-[200px] h-[80px] min-h-[80px] md:h-[100px]"
       } rounded-[50px] bg-bkg box-border p-1 text-2 font-semibold flex justify-evenly items-center z-40 relative [&>svg]:z-50
         before:contents-[''] before:absolute before:top-[40%] before:left-[40%] before:w-[20%] before:h-[20%] before:z-40 before:rounded-[50px] before:scale-0 before:bg-accent
         before:duration-300 hover:before:scale-[500%] 
         disabled:cursor-not-allowed
         disabled:before:hidden
         disabled:hover:text-danger
+        leading-4
+        md:leading-relaxed
       ${
         hovered && theme === light
           ? "text-white"

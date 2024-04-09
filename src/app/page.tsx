@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { useMotionValueEvent, useScroll } from "framer-motion";
 import { useWindowResize } from "@hooks/useWindowResize";
 import HomePage from "@component/homePage";
@@ -36,17 +36,60 @@ export default function Home() {
     }
   }, [scrollLocation]);
 
+  useEffect(() => {
+    const toggleFullScreen = (ref: MutableRefObject<HTMLDivElement | null>) => {
+      if (ref && ref.current) {
+        ref.current
+          .requestFullscreen()
+          .then(() => {
+            "fullscreen";
+          })
+          .catch((e) => {
+            console.log("error entering full screen mode", e);
+          });
+      }
+    };
+    if (windowSize.width < 768 && ref && ref.current) {
+      ref.current.addEventListener("scroll", () => {
+        console.log("scroll");
+        toggleFullScreen(ref);
+      });
+    } else {
+      if (ref && ref.current && document) {
+        document.exitFullscreen();
+        ref.current.removeEventListener("scroll", () => {
+          toggleFullScreen(ref);
+        });
+      }
+    }
+  }, [windowSize.width]);
+
   return (
     <div
       ref={ref}
-      className="relative h-screen w-full snap-proximity snap-y overflow-y-auto scroll-smooth"
+      className="relative h-screen w-full md:snap-proximity md:snap-y overflow-y-auto scroll-smooth"
     >
       <HomePage scrollYProgress={scrollYProgress} />
-      <Purpose isInView={Math.abs(scrollLocation - 1) < 0.1} />
-      <DataV isInView={Math.abs(scrollLocation - 2) < 0.1} />
-      <Mobile isInView={true} scrollYProgress={scrollYProgress} />
+      <Purpose
+        isInView={
+          windowSize.width < 768 ? true : Math.abs(scrollLocation - 1) < 0.1
+        }
+      />
+      <DataV
+        isInView={
+          windowSize.width < 768 ? true : Math.abs(scrollLocation - 2) < 0.1
+        }
+      />
+      <Mobile
+        isInView={windowSize.width < 768 ? true : scrollLocation > 2.96}
+        scrollYProgress={scrollYProgress}
+      />
       <HowToHelp
-        isInView={scrollLocation === 4.5 || scrollLocation.toFixed(1) === "4.5"}
+        isInView={
+          windowSize.width < 768
+            ? true
+            : scrollLocation === 4.5 || scrollLocation.toFixed(1) === "4.5"
+        }
       />
       <Footer />
     </div>

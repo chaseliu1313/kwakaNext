@@ -7,6 +7,7 @@ type Props = {
   label: string;
   navPath: string;
   isMobile?: boolean;
+  onClick?: () => void;
 };
 
 const enter = "Enter";
@@ -24,9 +25,18 @@ export default function NavButton(props: Props) {
           role="button"
           type="button"
           aria-label={label}
+          onClick={() => {
+            if (props.onClick) {
+              props.onClick();
+            }
+            router.push(navPath);
+          }}
           onKeyDown={(e) => {
             if (e.key === enter) {
               router.push(navPath);
+              if (props.onClick) {
+                props.onClick();
+              }
             }
           }}
         >
@@ -41,6 +51,9 @@ export default function NavButton(props: Props) {
           role="button"
           type="button"
           aria-label={label}
+          onClick={() => {
+            router.push(navPath);
+          }}
           onMouseEnter={() => {
             setHovered(true);
           }}

@@ -169,6 +169,9 @@ export default function MobileMenu() {
                 navPath={b.path}
                 key={b.label}
                 isMobile={true}
+                onClick={() => {
+                  setMenuOpen(false);
+                }}
               />
             </motion.div>
           ))}
