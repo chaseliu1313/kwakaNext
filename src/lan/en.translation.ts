@@ -60,7 +60,7 @@ export const en: Translation = {
   mobileExtra: "Empower your vision, mobilize your potential.",
   mobileDetails:
     "Having a mobile app is not just a plus, it keeps your customers engaged with elevated user experience.",
-  crossP: ["Cross-Platform ", "Magic"],
+  crossP: ["The power of", " Cross-Platform ", " Development"],
   crossPDetails:
     "Reach both iOS and Android users without breaking the bank! Our cross-platform development ensures a consistent and delightful user experience across devices.",
   tech: "Technologies",

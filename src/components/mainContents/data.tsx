@@ -2,14 +2,19 @@
 import { ReactElement, useEffect, useRef, useState } from "react";
 import { light } from "@constant/values";
 import useTheme from "@hooks/useTheme";
-import { easeInOut, motion, useInView } from "framer-motion";
+import {
+  easeInOut,
+  motion,
+  MotionValue,
+  useInView,
+  useMotionValueEvent,
+} from "framer-motion";
 import aniL from "@public/animation/data_l.json";
 import aniD from "@public/animation/data-d.json";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import { useLanguage } from "@hooks/useLanguage";
 import { transLabel } from "@lan/translation.interface";
 import { HiOutlineChevronDown } from "react-icons/hi";
-import { MainContentProps } from "./purpose";
 import Button from "@component/button";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
@@ -52,11 +57,10 @@ const BrandBox = ({
   );
 };
 
-export default function DataV(props: MainContentProps) {
+export default function DataV({ isInView }: { isInView: boolean }) {
   const { theme } = useTheme();
   const { lang } = useLanguage();
   const lottiref1 = useRef<LottieRefCurrentProps | null>(null);
-  const [isInView, setIsInView] = useState(false);
 
   useEffect(() => {
     if (lottiref1 && lottiref1.current) {
@@ -65,24 +69,15 @@ export default function DataV(props: MainContentProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [theme, lottiref1.current]);
 
-  useEffect(() => {
-    if (props.currentSection === 1) {
-      setIsInView(true);
-    } else {
-      setIsInView(false);
-    }
-  }, [props.currentSection]);
   return (
-    <motion.div
-      // animate={{
-      //   opacity: isInView ? 1 : 0,
-      //   scale: isInView ? 1 : 0.9,
-      // }}
+    <motion.section
+      id="dataVisualization"
+      // animate={{ opacity: isInView ? 1 : 0 }}
       transition={{ duration: 0.3 }}
-      className="h-full w-full flex flex-col-reverse md:flex-row justify-evenly items-center overflow-hidden bg-bkg relative"
+      className="h-screen w-full box-border pt-[80px] flex flex-col-reverse md:flex-row justify-evenly items-center  bg-bkg relative snap-start md:px-2 lg:px-0 "
     >
       <div
-        className={`fadein-container flex flex-row md:flex-col justify-end h-[15%] w-[80%] md:h-[40%] md:w-[50%] lg:h-[500px] lg:w-[500px] relative`}
+        className={`fadein-container flex flex-row md:flex-col justify-end h-[40%] w-[80%] md:h-[40%] md:w-[50%] lg:h-[500px] lg:w-[500px] relative`}
       >
         <motion.div
           className="h-[90%] w-[50%] md:w-full absolute top-0 left-0 right-0 bg-bkg rounded-2xl md:rounded-[50px]"
@@ -110,7 +105,9 @@ export default function DataV(props: MainContentProps) {
             label={lang.control.back}
             styles="m-auto"
             size="sm"
-            onClick={props.goBack}
+            useLink
+            link="#purpose"
+            onClick={() => {}}
             icon={
               <HiOutlineChevronDown className="h-5 w-5 text-accent rotate-180" />
             }
@@ -119,7 +116,9 @@ export default function DataV(props: MainContentProps) {
             label={lang.control.continue}
             styles="m-auto"
             size="sm"
-            onClick={props.goForward}
+            useLink
+            link="#mobileDevelopment"
+            onClick={() => {}}
             icon={<HiOutlineChevronDown className="h-5 w-5 text-accent" />}
           />
         </div>
@@ -169,9 +168,6 @@ export default function DataV(props: MainContentProps) {
           </div>
         </div>
       </div>
-      <p className="absolute bottom-0 left-2 text-[8px] font-light text-text">
-        {lang.cr.disclaim}
-      </p>
-    </motion.div>
+    </motion.section>
   );
 }

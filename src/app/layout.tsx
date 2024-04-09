@@ -25,7 +25,7 @@ export default function RootLayout({
       lang="en"
       id="root"
       data-theme={light}
-      className="bg-bkg !scroll-smooth"
+      className="bg-bkg !scroll-smooth font-[comfortaa] text-text"
     >
       <LanguageContextProvider>
         <body className={comfortaa.className}>

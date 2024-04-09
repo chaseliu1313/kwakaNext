@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactElement, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import useTheme from "@hooks/useTheme";
 import { light, dark } from "@constant/values";
@@ -7,7 +7,10 @@ import { FiAlignRight } from "react-icons/fi";
 import NavButton from "@component/navButton";
 import { useLanguage } from "@hooks/useLanguage";
 import { DarkModeIcon, LangSwitchCircle, LightModeIcon } from "@svg/icons";
-
+export const darkBg = "rgba(36, 69, 97, 0.5)";
+export const darkBd = "rgba(36, 69, 97, 0.5)";
+export const lightBg = "rgba(243, 242, 245, 0.5)";
+export const lightBd = "rgba(243, 242, 245, 0.5)";
 export default function MobileMenu() {
   const { lang, switchLanguage } = useLanguage();
   const { theme, setTheme } = useTheme();
@@ -15,6 +18,7 @@ export default function MobileMenu() {
   const [mobileRotate, setMobileRotate] = useState<number>(0);
   const [rotate, setRotation] = useState<number>(0);
   const containerRef = useRef<HTMLDivElement | null>(null);
+
   const onRotateFinish = () => {
     setRotation(0);
   };
@@ -82,7 +86,15 @@ export default function MobileMenu() {
         </motion.div>
       </button>
       {menuOpen && (
-        <div className="absolute h-[400px] w-[90px] top-[80px] right-5 rounded-lg flex flex-col justify-evenly items-center z-50 bg-bkg">
+        <div
+          className="absolute h-[400px] w-[90px] top-[80px] right-5 rounded-lg flex flex-col justify-evenly items-center z-50"
+          style={{
+            background: theme === "dark" ? darkBg : lightBg,
+            boxShadow: "0 4px 22px 0 rgba( 31, 38, 135, 0.37 )",
+            border:
+              theme === "dark" ? `1px solid ${darkBd}` : `1px solid ${lightBd}`,
+          }}
+        >
           <button
             role="button"
             type="button"

@@ -25,6 +25,7 @@
       "@public/*": ["./public/*"],
       "@svg/*": ["./src/svg/*"],
       "@constant/*": ["./src/constants/*"],
+      "@utils/*": ["./src/utils/*"],
       "react": ["./node_modules/@types/react"]
     }
   },

@@ -2,12 +2,15 @@
 import { dark, light } from "@constant/values";
 import useTheme from "@hooks/useTheme";
 import { easeInOut, motion } from "framer-motion";
+import Link from "next/link";
 import { ReactElement, useState } from "react";
 
 type ButtonProps = {
   label: string;
   styles?: string;
   size: "xs" | "sm" | "md" | "lg";
+  useLink?: boolean;
+  link?: string;
   icon?: ReactElement;
   disabled?: boolean;
   loading?: boolean;
@@ -62,36 +65,81 @@ export default function Button(props: ButtonProps) {
       }}
       transition={{ duration: 0.2, delay: 0 }}
     >
-      <p className="z-50">{props.label}</p>
-      <motion.div
-        animate={{
-          y:
-            props.mailing === "sending"
-              ? [-5, 0, 5, -5, 5, -2]
-              : props.mailing === "sent"
-              ? 0
-              : [-10, 0],
-          x: props.mailing === "sent" ? 50 : 0,
-          scale: props.mailing === "sent" ? 1.5 : 1,
-          opacity: props.mailing === "sent" ? [0.5, 0] : 1,
-        }}
-        transition={{
-          repeat: props.mailing === "sending" ? Infinity : undefined,
-          duration: props.mailing === "sent" ? 0.1 : 1,
-          ease: easeInOut,
-        }}
-        className={`z-50   ${
-          hovered && theme === light && !props.disabled
-            ? "[&>svg]:fill-white [&>svg]:stroke-white"
-            : hovered && theme === dark && !props.disabled
-            ? "[&>svg]:fill-black [&>svg]:stroke-black"
-            : props.disabled && hovered
-            ? "[&>svg]:fill-danger [&>svg]:stroke-danger"
-            : "fill-accent stroke-accent"
-        }`}
-      >
-        {props.icon}
-      </motion.div>
+      {props.useLink ? (
+        <Link
+          className="z-50 w-full h-full relative flex justify-evenly items-center"
+          href={props.link!}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === "Space") {
+              e.preventDefault();
+            }
+          }}
+        >
+          <p className="z-50">{props.label}</p>
+          <motion.div
+            animate={{
+              y:
+                props.mailing === "sending"
+                  ? [-5, 0, 5, -5, 5, -2]
+                  : props.mailing === "sent"
+                  ? 0
+                  : [-10, 0],
+              x: props.mailing === "sent" ? 50 : 0,
+              scale: props.mailing === "sent" ? 1.5 : 1,
+              opacity: props.mailing === "sent" ? [0.5, 0] : 1,
+            }}
+            transition={{
+              repeat: props.mailing === "sending" ? Infinity : undefined,
+              duration: props.mailing === "sent" ? 0.1 : 1,
+              ease: easeInOut,
+            }}
+            className={`z-50   ${
+              hovered && theme === light && !props.disabled
+                ? "[&>svg]:fill-white [&>svg]:stroke-white"
+                : hovered && theme === dark && !props.disabled
+                ? "[&>svg]:fill-black [&>svg]:stroke-black"
+                : props.disabled && hovered
+                ? "[&>svg]:fill-danger [&>svg]:stroke-danger"
+                : "fill-accent stroke-accent"
+            }`}
+          >
+            {props.icon}
+          </motion.div>
+        </Link>
+      ) : (
+        <>
+          <p className="z-50">{props.label}</p>
+          <motion.div
+            animate={{
+              y:
+                props.mailing === "sending"
+                  ? [-5, 0, 5, -5, 5, -2]
+                  : props.mailing === "sent"
+                  ? 0
+                  : [-10, 0],
+              x: props.mailing === "sent" ? 50 : 0,
+              scale: props.mailing === "sent" ? 1.5 : 1,
+              opacity: props.mailing === "sent" ? [0.5, 0] : 1,
+            }}
+            transition={{
+              repeat: props.mailing === "sending" ? Infinity : undefined,
+              duration: props.mailing === "sent" ? 0.1 : 1,
+              ease: easeInOut,
+            }}
+            className={`z-50   ${
+              hovered && theme === light && !props.disabled
+                ? "[&>svg]:fill-white [&>svg]:stroke-white"
+                : hovered && theme === dark && !props.disabled
+                ? "[&>svg]:fill-black [&>svg]:stroke-black"
+                : props.disabled && hovered
+                ? "[&>svg]:fill-danger [&>svg]:stroke-danger"
+                : "fill-accent stroke-accent"
+            }`}
+          >
+            {props.icon}
+          </motion.div>
+        </>
+      )}
     </motion.button>
   );
 }

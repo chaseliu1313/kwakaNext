@@ -21,35 +21,10 @@ export default function ContentContainer(props: Props) {
     <section
       className={`content-container h-[calc(100vh-80px)] w-full snap-start snap-mandatory  `}
     >
-      {props.id == 1 && (
-        <Purpose
-          goForward={props.goForward}
-          currentSection={props.currentSection}
-          goBack={props.goBack}
-        />
-      )}
-      {props.id === 2 && (
-        <DataV
-          goForward={props.goForward}
-          currentSection={props.currentSection}
-          goBack={props.goBack}
-        />
-      )}
-      {props.id === 3 && (
-        <Mobile
-          goForward={props.goForward}
-          currentSection={props.currentSection}
-          goBack={props.goBack}
-        />
-      )}
-      {props.id === 4 && (
-        <HowToHelp
-          goForward={props.goForward}
-          currentSection={props.currentSection}
-          goBack={props.goBack}
-          returnToFirstPage={props.returnToFirstPage}
-        />
-      )}
+      {props.id == 1 && <Purpose />}
+      {props.id === 2 && <DataV />}
+      {props.id === 3 && <Mobile />}
+      {props.id === 4 && <HowToHelp />}
     </section>
   );
 }

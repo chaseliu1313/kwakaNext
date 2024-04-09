@@ -1,8 +1,13 @@
 "use client";
-import { ReactElement, useEffect, useRef } from "react";
+import { ReactElement, useEffect, useRef, useState } from "react";
 import { light } from "@constant/values";
 import useTheme from "@hooks/useTheme";
-import { motion, useInView } from "framer-motion";
+import {
+  motion,
+  MotionValue,
+  useInView,
+  useMotionValueEvent,
+} from "framer-motion";
 import aniL from "@public/animation/kwaka_home_2_lt.json";
 import aniD from "@public/animation/kwaka_home_2_dk.json";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
@@ -18,53 +23,15 @@ import custom_d from "@public/illustrations/custom_d.svg";
 import qa_l from "@public/illustrations/qa_l.svg";
 import qa_d from "@public/illustrations/qa_d.svg";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
-export type MainContentProps = {
-  currentSection: number;
-  goForward: () => void;
-  goBack: () => void;
-};
-
+import { CardBody, CardContainer, CardItem } from "@component/3dCard";
+const mainDelay = 0.3;
 const icons: { light: string | StaticImport; dark: string | StaticImport }[] = [
   { light: uiux_l, dark: uiux_d },
   { light: custom_l, dark: custom_d },
   { light: qa_l, dark: qa_d },
 ];
 
-const AwardBox = ({
-  shouldAnimate,
-  title,
-  delay,
-  icons,
-}: {
-  shouldAnimate: boolean;
-  title: string;
-  delay: number;
-  icons: { light: string | StaticImport; dark: string | StaticImport };
-}): ReactElement => {
-  const { theme } = useTheme();
-  return (
-    <motion.div
-      className={`h-[25%] w-[80%] md:max-h-[300px] md:h-[80%] md:w-[30%] rounded-2xl text-center p-2 box-border bg-bkg lg:p-8 ${
-        theme === light ? "shadow-light" : "shadow-dark"
-      }`}
-      animate={{
-        opacity: shouldAnimate ? 1 : 0,
-        scale: shouldAnimate ? 1 : 0.9,
-      }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      transition={{ delay: 0.8 + delay, duration: 0.4 }}
-    >
-      <h3 className="text-text text-sm lg:text-xl">{title}</h3>
-      <Image
-        src={theme === light ? icons.light : icons.dark}
-        alt="illustrations"
-        className="h-[50%]"
-      />
-    </motion.div>
-  );
-};
-
-export default function Purpose(props: MainContentProps) {
+export default function Purpose({ isInView }: { isInView: boolean }) {
   const { theme } = useTheme();
   const { lang } = useLanguage();
 
@@ -78,13 +45,11 @@ export default function Purpose(props: MainContentProps) {
   }, [theme, lottiref1.current]);
 
   return (
-    <motion.div
-      // animate={{
-      //   opacity: props.currentSection === 0 ? 1 : 0,
-      //   scale: props.currentSection === 0 ? 1 : 0.9,
-      // }}
+    <motion.section
+      id="purpose"
+      //animate={{ opacity: isInView ? 1 : 0 }}
       transition={{ duration: 0.3 }}
-      className="h-full w-full flex flex-col md:flex-row justify-evenly items-center overflow-hidden bg-bkg relative"
+      className="h-screen w-full box-border pt-[80px] flex flex-col md:flex-row justify-evenly items-center bg-bkg relative snap-start md:px-2 lg:px-0"
     >
       <div
         className={`h-[80%] w-full md:h-[70%] md:w-[400px] lg:h-[80%] lg:w-[50%] flex flex-col justify-start items-center text-center md:text-left `}
@@ -118,13 +83,31 @@ export default function Purpose(props: MainContentProps) {
             {lang.ourService}
           </h2>
           {lang.services.slice(0, 3).map((s, i) => (
-            <AwardBox
-              shouldAnimate={props.currentSection === 0}
-              title={s}
+            <CardContainer
               key={i}
-              delay={0.2 * i}
-              icons={icons[i]}
-            />
+              className="h-full w-full"
+              containerClassName="h-[25%] w-[80%] md:max-h-[300px] md:h-[80%] md:w-[30%]"
+            >
+              <CardBody
+                className={`rounded-2xl text-center p-2 box-border bg-bkg lg:p-8 flex justify-center items-center flex-col  ${
+                  theme === light ? "shadow-light" : "shadow-dark"
+                }`}
+              >
+                <CardItem translateZ="60">
+                  <h3 className="text-text text-sm lg:text-xl">{s}</h3>
+                </CardItem>
+                <CardItem
+                  translateZ="90"
+                  className="w-full h-full flex justify-center items-center"
+                >
+                  <Image
+                    src={theme === light ? icons[i].light : icons[i].dark}
+                    alt="illustrations"
+                    className="md:h-[50%] w-auto h-[80%] "
+                  />
+                </CardItem>
+              </CardBody>
+            </CardContainer>
           ))}
         </div>
       </div>
@@ -133,11 +116,8 @@ export default function Purpose(props: MainContentProps) {
       >
         <motion.div
           className="h-[90%] w-[50%] md:w-full absolute top-0 left-0 right-0 bg-bkg rounded-2xl md:rounded-[50px]"
-          animate={{
-            opacity: props.currentSection === 0 ? 1 : 0,
-            scale: props.currentSection === 0 ? 1 : 0.9,
-          }}
-          transition={{ delay: 1, duration: 0.5 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          animate={{ opacity: isInView ? 1 : 0, scale: isInView ? 1 : 0.9 }}
         >
           <Lottie
             animationData={theme === light ? aniL : aniD}
@@ -149,16 +129,17 @@ export default function Purpose(props: MainContentProps) {
           className={`absolute h-[90%] w-[50%] md:w-full bg-transparent top-0 left-0 right-0  rounded-2xl md:rounded-[50px] ${
             theme === light ? "shadow-light" : "shadow-dark"
           }  `}
-          animate={{ opacity: props.currentSection === 0 ? 1 : 0 }}
           transition={{ delay: 0.5, duration: 0.7 }}
         />
-        <motion.div className=""></motion.div>
+
         <div className="h-full w-[50%] md:h-[10%] md:w-full flex flex-col md:flex-row justify-evenly items-center md:pt-5">
           <Button
             label={lang.control.back}
             styles="m-auto"
             size="sm"
-            onClick={props.goBack}
+            useLink
+            link="#landing"
+            onClick={() => {}}
             icon={
               <HiOutlineChevronDown className="h-5 w-5 text-accent rotate-180" />
             }
@@ -166,15 +147,14 @@ export default function Purpose(props: MainContentProps) {
           <Button
             label={lang.control.continue}
             styles="m-auto"
+            useLink
+            link="#dataVisualization"
             size="sm"
-            onClick={props.goForward}
+            onClick={() => {}}
             icon={<HiOutlineChevronDown className="h-5 w-5 text-accent" />}
           />
         </div>
       </div>
-      <p className="absolute bottom-0 left-2 text-[8px] font-light">
-        {lang.cr.disclaim}
-      </p>
-    </motion.div>
+    </motion.section>
   );
 }

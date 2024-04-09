@@ -104,24 +104,6 @@ const MainContentContainer = ({
   });
 
   useMotionValueEvent(scrollY, "change", (v) => {
-    // const scrollPosition = v / height;
-    // const difference = Math.abs(scrollPosition - Math.round(scrollPosition));
-
-    // // if (difference < 0.05) {
-    // //   const titleIndex = Math.round(v / cardHeight);
-
-    // //   setCurrentArticle(titleIndex);
-    // //   if (titles[titleIndex]) {
-    // //     setCurrentTitle(titles[titleIndex]);
-    // //   }
-    // // }
-
-    // setTimeout(() => {
-    //   if (ref && ref.current) {
-    //     //ref.current.scrollTo(0, Math.round(v / height) * height);
-    //   }
-    // }, 500);
-
     setCurrentSection(Math.round(v / height));
   });
 
