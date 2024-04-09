@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   title: "Kwaka Tech",
   description: "Kwaka Tech Inc Official Website",
   viewport: { width: "device-width", initialScale: 1 },
+  other: { display: "fullscreen" },
 };
 
 export default function RootLayout({
