@@ -1,10 +1,9 @@
 "use client";
-import { ReactElement, useRef, useState } from "react";
+import { ReactElement } from "react";
 import { light } from "@constant/values";
 import useTheme from "@hooks/useTheme";
-import { easeInOut, motion, useAnimate, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import { useLanguage } from "@hooks/useLanguage";
 import { transLabel } from "@lan/translation.interface";
 import { HiOutlineChevronDown } from "react-icons/hi";
@@ -17,7 +16,6 @@ import { AiOutlineVerticalAlignTop } from "react-icons/ai";
 import { IoIosContact } from "react-icons/io";
 
 import { DiMysql } from "react-icons/di";
-import { useWindowResize } from "@hooks/useWindowResize";
 import { FaAngular, FaAws, FaLinux, FaReact, FaSwift } from "react-icons/fa";
 import {
   SiAdobexd,
@@ -109,6 +107,7 @@ export default function HowToHelp({ isInView }: { isInView: boolean }) {
           {lang.howHelp}
         </motion.h1>
         <Image
+          priority
           src={theme === light ? illu_l : illu_d}
           alt="illustration"
           className="h-[70%] w-[auto] pt-2"

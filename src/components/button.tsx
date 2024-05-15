@@ -15,6 +15,7 @@ type ButtonProps = {
   disabled?: boolean;
   loading?: boolean;
   mailing?: "editing" | "sending" | "sent";
+  shadow?: boolean;
   onClick: () => void;
 };
 
@@ -24,7 +25,13 @@ export default function Button(props: ButtonProps) {
   return (
     <motion.button
       disabled={props.disabled}
-      className={` ${theme === light ? "shadow-light" : "shadow-dark"}
+      className={` ${
+        props.shadow === false
+          ? "shadow-none"
+          : theme === light
+          ? "shadow-light"
+          : "shadow-dark"
+      }
       
       ${
         props.size === "xs"

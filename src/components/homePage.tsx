@@ -259,6 +259,7 @@ export default function HomePage({
             className="w-[125px] h-[auto] md:w-[175px] lg:w-[250px] "
             src={theme === light ? puzzleTrL : puzzleTrD}
             alt="Puzzle 1"
+            priority
           />
           <h2
             className={`${
@@ -279,6 +280,7 @@ export default function HomePage({
             className="w-[125px] h-[auto] md:w-[175px] lg:w-[250px] "
             src={theme === light ? puzzleBlL : puzzleBlD}
             alt="Puzzle 1"
+            priority
           />
           <h2
             className={`${
@@ -297,6 +299,7 @@ export default function HomePage({
         >
           <Image
             className="h-[125px] w-[auto] md:h-[175px] lg:h-[250px]"
+            priority
             src={theme === light ? puzzleBrL : puzzleBrD}
             alt="Puzzle 1"
           />

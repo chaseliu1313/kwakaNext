@@ -36,32 +36,37 @@ export default function Home() {
     }
   }, [scrollLocation]);
 
+  const toggleFullScreen = (ref: MutableRefObject<HTMLDivElement | null>) => {
+    if (ref && ref.current) {
+      ref.current
+        .requestFullscreen()
+        .then(() => {
+          "fullscreen";
+        })
+        .catch((e) => {
+          console.log("error entering full screen mode", e);
+        });
+    }
+  };
+
   useEffect(() => {
-    const toggleFullScreen = (ref: MutableRefObject<HTMLDivElement | null>) => {
-      if (ref && ref.current) {
-        ref.current
-          .requestFullscreen()
-          .then(() => {
-            "fullscreen";
-          })
-          .catch((e) => {
-            console.log("error entering full screen mode", e);
-          });
-      }
-    };
-    if (windowSize.width < 768 && ref && ref.current) {
-      ref.current.addEventListener("scroll", () => {
-        console.log("scroll");
+    const el = ref.current;
+    if (windowSize.width !== 0 && windowSize.width < 768 && ref && el) {
+      el.addEventListener("scroll", () => {
         toggleFullScreen(ref);
       });
-    } else {
-      if (ref && ref.current && document) {
-        document.exitFullscreen();
-        ref.current.removeEventListener("scroll", () => {
-          toggleFullScreen(ref);
-        });
-      }
     }
+
+    return () => {
+      if (windowSize.width !== 0 && windowSize.width < 768) {
+        if (ref && el && document) {
+          document.exitFullscreen();
+          el.removeEventListener("scroll", () => {
+            toggleFullScreen(ref);
+          });
+        }
+      }
+    };
   }, [windowSize.width]);
 
   return (
