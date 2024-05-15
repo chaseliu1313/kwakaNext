@@ -14,7 +14,7 @@ export default function Footer() {
       className="relative bg-bkg border-accent border-t-[0.5px] text-text w-full h-screen snap-start snap-mandatory flex justify-start items-center pt-[80px] box-border flex-col "
     >
       <div className="h-[75%] w-[80%] flex flex-col md:flex-row justify-center items-center p-10 bg-primary rounded-3xl text-bkg shadow-sm">
-        <div className="flex flex-col justify-center items-start h-full w-full md:w-[30%] relative text-left p-2 ">
+        <div className="flex flex-col justify-start items-start h-full w-full md:w-[30%] relative text-left p-2 pt-[15%]">
           <Link className="text-xl md:text-3xl  " href="/">
             Home
           </Link>
@@ -46,8 +46,8 @@ export default function Footer() {
             Contact us
           </Link>
         </div>
-        <div className="flex flex-col justify-center items-center   md:items-start   relative p-2">
-          <div className="w-[70%] h-full flex flex-row items-center self-start box-border">
+        <div className="flex flex-col h-full justify-start items-center md:items-start relative p-2 pt-[15%]">
+          <div className="w-[70%] h-fit flex flex-row items-center self-start box-border">
             <Image
               alt="logo"
               src={theme === light ? logod : logo}
@@ -71,7 +71,7 @@ export default function Footer() {
             icon={<IoIosContact className="h-5 w-5 text-accent" />}
           />
         </div>
-        <div className="flex flex-col justify-center items-center h-full w-full md:w-[30%] md:items-start p-2 relative">
+        <div className="flex flex-col justify-start items-center h-full w-full md:w-[30%] md:items-start p-2 relative pt-[15%]">
           <h2 className="text-xl md:text-3xl mb-5 text-bkg">
             Follow us on social media:
           </h2>
